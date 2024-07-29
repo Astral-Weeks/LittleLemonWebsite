@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
+    'whitenoise.runserver_nostatic',
     'restaurant',
 ]
 
@@ -137,6 +138,15 @@ STATIC_URL = 'restaurant/static/'
 STATICFILES_DIRS = [
     "restaurant/static",
 ]
+
+MIMETYPE_MAP = {
+    'css': 'text/css',
+}
+
+def get_mime_type(request, path):
+    if path.endswith('.css'):
+        return 'text/css'
+    return mimetypes.guess_type(path)[0] or 'application/octet-stream'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
